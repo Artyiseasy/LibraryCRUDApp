@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<p th:text="${person.getName()+ ', ' + person.getYear_of_birthday()}">VALUE</p>
+<p th:text="${person.getName()+ ', ' + person.getAge()}">VALUE</p>
 
 
     <div th:if = "${books.isEmpty()}">
@@ -20,7 +20,14 @@
     <b>Books:</b>
     <br/>
     <table th:each="book : ${books}">
-        <tr th:text="${book.getBook_name() + ', ' + book.getAuthor_name() + ', ' + book.getYear_of_production()}"></tr>
+        <tr>
+            <td>
+          <span th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear()}"
+                th:style = "${book.isExpired()} ? 'color : red' : 'color : black'">
+                book
+          </span>
+            </td>
+        </tr>
     </table>
     <hr/>
 </div>
@@ -32,6 +39,6 @@
     <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}">
     <input type="submit" value="DELETE"/>
 </form>
-
+<a href = "/people">Persons</a>
 </body>
 </html>

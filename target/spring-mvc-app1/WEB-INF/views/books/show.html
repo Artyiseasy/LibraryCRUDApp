@@ -5,7 +5,8 @@
     <title>ShowBook</title>
 </head>
 <body>
-<p th:text="${book.getBook_name() + ', ' + book.getAuthor_name() + ', ' + book.getYear_of_production()}">VALUE</p>
+<p th:text="${book.getTitle() + ', ' + book.getAuthor() + ', ' + book.getYear
+()}">VALUE</p>
 
 <div th:if="${owner}">
     <span>Owner of book: </span> <span th:text="${owner.getName()}">Person Name</span>
@@ -37,6 +38,6 @@
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
     <input type="submit" value="DELETE"/>
 </form>
-
+<a href = "/books">Books</a>
 </body>
 </html>

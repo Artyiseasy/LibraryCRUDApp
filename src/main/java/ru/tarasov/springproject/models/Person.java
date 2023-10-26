@@ -1,42 +1,51 @@
 package ru.tarasov.springproject.models;
 
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 
+import java.util.List;
+import java.util.Objects;
 
+@Entity
+@Table(name = "person")
 public class Person {
+
+    @Id()
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @NotEmpty(message = "Name should not be empty")
-    @Size (min = 2, max = 100, message = "name should be between 2 and 100 characters")
+    @Size(min = 2, max = 100, message = "N ame should be between 2 and 100 characters")
+    @Column(name = "name")
     private String name;
 
-    @Min(value = 1900, message = "year should be greater than 1900")
-    @Max(value = 2023, message = "year should be less than 2023")
-    private int year_of_birthday;
+    @Min(value = 0, message = "age should be more than 0")
+    @Max(value = 115, message = "age should be less than 115")
+    @Column(name = "age")
+    private int age;
 
-    public Person(int id, String name, int yearOfBirthday) {
-        this.id = id;
+    @OneToMany(mappedBy = "owner")
+    private List<Book> bookList;
+
+    public Person(String name, int age) {
         this.name = name;
-        this.year_of_birthday = yearOfBirthday;
+        this.age = age;
     }
 
-    public Person(){}
-
-
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) { this.id = id;}
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
+    public Person() {
     }
 
-    public int getYear_of_birthday() {return year_of_birthday;}
-    public void setYear_of_birthday(int year_of_birthday) {this.year_of_birthday = year_of_birthday;}
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
-}
+    public String getName() {return name;}
+    public void setName(String name) {this.name = name;}
+
+    public int getAge() {return age;}
+    public void setAge(int age) {this.age = age;}
+
+    public List<Book> getBookList() {return bookList;}
+    public void setBookList(List<Book> bookList) {this.bookList = bookList;}
+    }
